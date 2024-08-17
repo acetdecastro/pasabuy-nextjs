@@ -4,9 +4,11 @@ import { env } from "@/env";
 
 export default {
   schema: "./src/server/db/schema.ts",
+  out: "./src/server/db/migration",
+  verbose: true,
   dialect: "postgresql",
   dbCredentials: {
     url: env.DATABASE_URL,
   },
-  tablesFilter: ["pasabuy-nextjs_*"],
+  tablesFilter: ["*"],
 } satisfies Config;
