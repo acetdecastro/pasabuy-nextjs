@@ -80,7 +80,7 @@ export default function LPHeader({ signUpUrl, signInUrl }: LPHeaderProps) {
             </Link>
             <Link
               href={signUpUrl}
-              className="select-none rounded-lg border border-primary/50 px-2 py-1 shadow-md hover:bg-accent md:text-base lg:px-4"
+              className="select-none rounded-lg border border-primary/50 px-2 py-1 shadow-md transition-all hover:bg-accent md:text-base lg:px-4"
               prefetch={false}
             >
               Sign Up

@@ -7,7 +7,7 @@ export default function LPFeatures() {
   return (
     <section
       id="features"
-      className="container mx-auto select-none px-6 pb-12 pt-[5rem] sm:w-[37rem] md:w-[45rem] lg:w-[50rem] lg:pt-20"
+      className="container mx-auto select-none px-6 pb-12 pt-20 sm:w-[37rem] sm:pt-20 md:w-[45rem] md:pt-24 lg:w-[50rem] lg:pt-24"
     >
       <div className="flex items-center justify-center px-4 pb-4">
         <Link
