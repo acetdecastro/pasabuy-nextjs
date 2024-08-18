@@ -13,13 +13,13 @@ export default function LPMain({ signUpUrl }: LPMainProps) {
         <div className="mb-5 mt-14">
           <h1 className="select-none text-center font-extrabold">
             <div className="relative space-y-2 leading-loose tracking-tight">
-              <span className="xl:text-10xl absolute -left-[8rem] -top-[1.3rem] mb-1 block text-5xl text-primary/10 sm:-left-[16rem] sm:-top-[3.5rem] sm:text-8xl md:-left-[16rem] md:text-8xl">
+              <span className="xl:text-10xl absolute -left-[8rem] -top-[1.3rem] mb-1 block text-5xl text-primary/5 sm:-left-[16rem] sm:-top-[3.5rem] sm:text-8xl md:-left-[16rem] md:text-8xl">
                 Simplified
               </span>
               <span className="xl:text-10xl sm:top-30 md:top-18 absolute left-1/2 top-10 z-30 mb-10 h-[6rem] w-[13rem] -translate-x-1/2 -translate-y-1/2 transform bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-500 bg-clip-text text-5xl tracking-tighter text-transparent sm:left-1/2 sm:h-[8rem] sm:w-[26rem] sm:text-8xl md:left-1/2 md:h-[8rem] md:w-[26rem] md:text-8xl">
                 Pasabuy
               </span>
-              <span className="xl:text-10xl absolute -left-[8.6rem] top-4 -mb-10 block text-5xl text-primary/10 sm:-left-[17.2rem] sm:top-5 sm:text-8xl md:-left-[17.2rem] md:top-[1.5rem] md:text-8xl">
+              <span className="xl:text-10xl absolute -left-[8.6rem] top-4 -mb-10 block text-5xl text-primary/5 sm:-left-[17.2rem] sm:top-5 sm:text-8xl md:-left-[17.2rem] md:top-[1.5rem] md:text-8xl">
                 Experience
               </span>
             </div>
@@ -35,7 +35,7 @@ export default function LPMain({ signUpUrl }: LPMainProps) {
       <div className="mt-5 flex items-center justify-center pb-10">
         <Link
           href={signUpUrl}
-          className="relative block select-none rounded-2xl bg-primary px-12 py-2 text-center text-sm font-semibold tracking-tighter text-primary-foreground shadow-xl transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-primary/50 sm:py-2.5 md:px-12 md:py-2.5 md:text-xl lg:px-14 lg:py-3.5 lg:text-2xl"
+          className="relative block select-none rounded-2xl bg-primary px-12 py-2 text-center text-sm font-semibold tracking-tighter text-primary-foreground shadow-xl transition-all hover:scale-105 hover:shadow-lg hover:shadow-primary/50 sm:py-2.5 md:px-12 md:py-2.5 md:text-xl lg:px-14 lg:py-3.5 lg:text-2xl"
         >
           Sign Up
           <div className="absolute right-0 top-0 -mr-2 -mt-2 rounded-full border border-teal-300/60 bg-teal-400/70 px-2 py-0.5 text-xs font-semibold tracking-tight text-primary-foreground md:-mr-1 md:-mt-2.5 md:text-sm lg:-mr-6 lg:-mt-2.5 lg:px-4 lg:text-lg/relaxed">
@@ -60,7 +60,7 @@ export default function LPMain({ signUpUrl }: LPMainProps) {
           <div className="mx-auto max-w-sm">
             <Link
               href={signUpUrl}
-              className="relative mt-3 block animate-gradient-waving select-none rounded-2xl bg-brand-gradient px-5 py-3 text-center font-semibold tracking-tighter text-white shadow-lg transition-all duration-200 hover:scale-105 hover:bg-gradient-to-br hover:from-indigo-500 hover:via-sky-500 hover:to-emerald-500 hover:shadow-lg hover:shadow-primary/50 md:text-lg lg:px-7 lg:py-4 lg:text-2xl"
+              className="relative mt-3 block animate-gradient-waving select-none rounded-2xl bg-brand-gradient px-5 py-3 text-center font-semibold tracking-tighter text-white shadow-lg transition-all hover:scale-105 hover:bg-gradient-to-br hover:from-indigo-500 hover:via-sky-500 hover:to-emerald-500 hover:shadow-lg hover:shadow-primary/50 md:text-lg lg:px-7 lg:py-4 lg:text-2xl"
             >
               Sign Up For Free
             </Link>
