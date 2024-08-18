@@ -1,11 +1,11 @@
 {
-  "id": "ca350fb6-12a3-41b7-8153-32ef597c6eee",
+  "id": "91177766-06e2-4338-a387-511fdd6c7082",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "6",
   "dialect": "postgresql",
   "tables": {
-    "public.user": {
-      "name": "user",
+    "public.users": {
+      "name": "users",
       "schema": "",
       "columns": {
         "id": {
@@ -50,7 +50,7 @@
           "name": "username",
           "type": "varchar(30)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "createdTs": {
           "name": "createdTs",
@@ -67,13 +67,21 @@
           "default": "now()"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "usernameIdx": {
+          "name": "usernameIdx",
+          "columns": [
+            "username"
+          ],
+          "isUnique": false
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.trip": {
-      "name": "trip",
+    "public.trips": {
+      "name": "trips",
       "schema": "",
       "columns": {
         "id": {
@@ -163,10 +171,10 @@
         }
       },
       "foreignKeys": {
-        "trip_ownerId_user_id_fk": {
-          "name": "trip_ownerId_user_id_fk",
-          "tableFrom": "trip",
-          "tableTo": "user",
+        "trips_ownerId_users_id_fk": {
+          "name": "trips_ownerId_users_id_fk",
+          "tableFrom": "trips",
+          "tableTo": "users",
           "columnsFrom": [
             "ownerId"
           ],
@@ -179,8 +187,8 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "trip_key_unique": {
-          "name": "trip_key_unique",
+        "trips_key_unique": {
+          "name": "trips_key_unique",
           "nullsNotDistinct": false,
           "columns": [
             "key"
@@ -188,8 +196,8 @@
         }
       }
     },
-    "public.pasabuyRequest": {
-      "name": "pasabuyRequest",
+    "public.pasabuyRequests": {
+      "name": "pasabuyRequests",
       "schema": "",
       "columns": {
         "id": {
@@ -241,10 +249,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "pasabuyRequest_tripId_trip_id_fk": {
-          "name": "pasabuyRequest_tripId_trip_id_fk",
-          "tableFrom": "pasabuyRequest",
-          "tableTo": "trip",
+        "pasabuyRequests_tripId_trips_id_fk": {
+          "name": "pasabuyRequests_tripId_trips_id_fk",
+          "tableFrom": "pasabuyRequests",
+          "tableTo": "trips",
           "columnsFrom": [
             "tripId"
           ],
@@ -254,10 +262,10 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "pasabuyRequest_requestorId_user_id_fk": {
-          "name": "pasabuyRequest_requestorId_user_id_fk",
-          "tableFrom": "pasabuyRequest",
-          "tableTo": "user",
+        "pasabuyRequests_requestorId_users_id_fk": {
+          "name": "pasabuyRequests_requestorId_users_id_fk",
+          "tableFrom": "pasabuyRequests",
+          "tableTo": "users",
           "columnsFrom": [
             "requestorId"
           ],
@@ -267,12 +275,96 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "pasabuyRequest_handlerId_user_id_fk": {
-          "name": "pasabuyRequest_handlerId_user_id_fk",
-          "tableFrom": "pasabuyRequest",
-          "tableTo": "user",
+        "pasabuyRequests_handlerId_users_id_fk": {
+          "name": "pasabuyRequests_handlerId_users_id_fk",
+          "tableFrom": "pasabuyRequests",
+          "tableTo": "users",
           "columnsFrom": [
             "handlerId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.items": {
+      "name": "items",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "quantity": {
+          "name": "quantity",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "additionalRequest": {
+          "name": "additionalRequest",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "maxBudget": {
+          "name": "maxBudget",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "pasabuyRequestId": {
+          "name": "pasabuyRequestId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdTs": {
+          "name": "createdTs",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedTs": {
+          "name": "updatedTs",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "items_pasabuyRequestId_pasabuyRequests_id_fk": {
+          "name": "items_pasabuyRequestId_pasabuyRequests_id_fk",
+          "tableFrom": "items",
+          "tableTo": "pasabuyRequests",
+          "columnsFrom": [
+            "pasabuyRequestId"
           ],
           "columnsTo": [
             "id"
@@ -292,8 +384,10 @@
       "values": [
         "pending",
         "approved",
-        "canceled",
-        "completed"
+        "in_progress",
+        "to_ship",
+        "completed",
+        "canceled"
       ]
     }
   },

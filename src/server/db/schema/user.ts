@@ -1,11 +1,11 @@
 import { relations } from "drizzle-orm";
 import { boolean, pgTable, timestamp, varchar } from "drizzle-orm/pg-core";
-import { trip } from "./trip";
-import { pasabuyRequest } from "./pasabuy_request";
+import { trips } from "./trip";
+import { pasabuyRequests } from "./pasabuy_request";
 import { index } from "drizzle-orm/pg-core";
 
-export const user = pgTable(
-  "user",
+export const users = pgTable(
+  "users",
   {
     id: varchar("id", { length: 256 }).primaryKey(),
     email: varchar("email", { length: 256 }).notNull(),
@@ -15,7 +15,7 @@ export const user = pgTable(
     profilePictureUrl: varchar("profilePictureUrl", { length: 256 }).default(
       "",
     ),
-    username: varchar("username", { length: 30 }).notNull(),
+    username: varchar("username", { length: 30 }),
 
     // Audit
     createdTs: timestamp("createdTs").notNull().defaultNow(),
@@ -29,8 +29,8 @@ export const user = pgTable(
   }),
 );
 
-export const usersRelations = relations(user, ({ many }) => ({
-  trips: many(trip),
-  requestor: many(pasabuyRequest, { relationName: "requestor" }),
-  handler: many(pasabuyRequest, { relationName: "handler" }),
+export const usersRelations = relations(users, ({ many }) => ({
+  trips: many(trips),
+  requestor: many(pasabuyRequests, { relationName: "requestor" }),
+  handler: many(pasabuyRequests, { relationName: "handler" }),
 }));

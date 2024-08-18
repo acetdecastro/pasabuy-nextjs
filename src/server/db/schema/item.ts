@@ -1,19 +1,15 @@
 import {
-  boolean,
   integer,
-  pgEnum,
   pgTable,
   serial,
   text,
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
-import { user } from "./user";
-import { trip } from "./trip";
 import { relations } from "drizzle-orm";
-import { pasabuyRequest } from "./pasabuy_request";
+import { pasabuyRequests } from "./pasabuy_request";
 
-export const item = pgTable("item", {
+export const items = pgTable("items", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 256 }).notNull(),
   quantity: integer("quantity").default(0).notNull(),
@@ -24,7 +20,7 @@ export const item = pgTable("item", {
 
   // Relations
   pasabuyRequestId: integer("pasabuyRequestId").references(
-    () => pasabuyRequest.id,
+    () => pasabuyRequests.id,
     { onDelete: "cascade" },
   ),
 
@@ -36,9 +32,9 @@ export const item = pgTable("item", {
     .$onUpdateFn(() => new Date()),
 });
 
-export const itemRelations = relations(item, ({ one }) => ({
-  pasabuyRequest: one(pasabuyRequest, {
-    fields: [item.pasabuyRequestId],
-    references: [pasabuyRequest.id],
+export const itemRelations = relations(items, ({ one }) => ({
+  pasabuyRequest: one(pasabuyRequests, {
+    fields: [items.pasabuyRequestId],
+    references: [pasabuyRequests.id],
   }),
 }));

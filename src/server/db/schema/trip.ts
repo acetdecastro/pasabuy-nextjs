@@ -7,13 +7,13 @@ import {
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
-import { user } from "./user";
+import { users } from "./user";
 import { generateShortUUID } from "@/utils/generate_short_uuid";
 import { relations } from "drizzle-orm";
-import { pasabuyRequest } from "./pasabuy_request";
+import { pasabuyRequests } from "./pasabuy_request";
 
-export const trip = pgTable(
-  "trip",
+export const trips = pgTable(
+  "trips",
   {
     id: serial("id").primaryKey(),
     key: varchar("key")
@@ -35,7 +35,7 @@ export const trip = pgTable(
     // Relations
     // One to One
     ownerId: varchar("ownerId")
-      .references(() => user.id, { onDelete: "cascade" })
+      .references(() => users.id, { onDelete: "cascade" })
       .notNull(),
 
     // Audit
@@ -50,10 +50,10 @@ export const trip = pgTable(
   }),
 );
 
-export const TripRelations = relations(trip, ({ one, many }) => ({
-  owner: one(user, {
-    fields: [trip.ownerId],
-    references: [user.id],
+export const TripRelations = relations(trips, ({ one, many }) => ({
+  owner: one(users, {
+    fields: [trips.ownerId],
+    references: [users.id],
   }),
-  pasabuyRequests: many(pasabuyRequest),
+  pasabuyRequests: many(pasabuyRequests),
 }));

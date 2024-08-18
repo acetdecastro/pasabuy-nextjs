@@ -1,17 +1,15 @@
 import {
-  boolean,
   integer,
   pgEnum,
   pgTable,
   serial,
-  text,
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
-import { user } from "./user";
-import { trip } from "./trip";
+import { users } from "./user";
+import { trips } from "./trip";
 import { relations } from "drizzle-orm";
-import { item } from "./item";
+import { items } from "./item";
 
 export const PasabuyRequestStatusEnum = pgEnum("pasabuyRequestStatus", [
   "pending",
@@ -22,16 +20,16 @@ export const PasabuyRequestStatusEnum = pgEnum("pasabuyRequestStatus", [
   "canceled",
 ]);
 
-export const pasabuyRequest = pgTable("pasabuyRequest", {
+export const pasabuyRequests = pgTable("pasabuyRequests", {
   id: serial("id").primaryKey(),
   status: PasabuyRequestStatusEnum("status").notNull().default("pending"),
 
   // Relations
-  tripId: integer("tripId").references(() => trip.id, { onDelete: "cascade" }),
-  requestorId: varchar("requestorId").references(() => user.id, {
+  tripId: integer("tripId").references(() => trips.id, { onDelete: "cascade" }),
+  requestorId: varchar("requestorId").references(() => users.id, {
     onDelete: "cascade",
   }),
-  handlerId: varchar("handlerId").references(() => user.id, {
+  handlerId: varchar("handlerId").references(() => users.id, {
     onDelete: "cascade",
   }),
 
@@ -44,22 +42,22 @@ export const pasabuyRequest = pgTable("pasabuyRequest", {
 });
 
 export const pasabuyRequestRelations = relations(
-  pasabuyRequest,
+  pasabuyRequests,
   ({ one, many }) => ({
-    trip: one(trip, {
-      fields: [pasabuyRequest.tripId],
-      references: [trip.id],
+    trip: one(trips, {
+      fields: [pasabuyRequests.tripId],
+      references: [trips.id],
     }),
-    requestor: one(user, {
-      fields: [pasabuyRequest.requestorId],
-      references: [user.id],
+    requestor: one(users, {
+      fields: [pasabuyRequests.requestorId],
+      references: [users.id],
       relationName: "requestor",
     }),
-    reviewer: one(user, {
-      fields: [pasabuyRequest.handlerId],
-      references: [user.id],
+    reviewer: one(users, {
+      fields: [pasabuyRequests.handlerId],
+      references: [users.id],
       relationName: "handler",
     }),
-    items: many(item),
+    items: many(items),
   }),
 );

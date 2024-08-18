@@ -10,12 +10,7 @@ const poppins = Poppins({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Dashboard",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
-};
-
-export default function DashboardLayout({
+export default function AppLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (

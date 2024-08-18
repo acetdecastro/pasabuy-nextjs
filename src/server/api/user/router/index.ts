@@ -1,18 +1,19 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
-import { db } from "@/server/db";
-import { user } from "@/server/db/schema";
-import { generateShortUUID } from "@/utils/generate_short_uuid";
-import { createUser } from "@/server/api/user/service";
-import { UserCreateInput, userCreateSchema } from "@/types";
+import { create, getById as getById } from "@/server/api/user/service";
+import { userCreateSchema } from "@/types";
 
 export const userRouter = createTRPCRouter({
+  getById: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      return await getById(ctx.db, input.id);
+    }),
+
   create: publicProcedure
     .input(userCreateSchema)
     .mutation(async ({ ctx, input }) => {
-      console.log("ctx.headers", ctx.headers);
-
-      return createUser(input);
+      return await create(ctx.db, input);
     }),
 
   // Uncomment and adjust if you need a getLatest procedure
